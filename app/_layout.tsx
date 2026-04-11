@@ -9,6 +9,13 @@ export default function RootLayout() {
       <StatusBar style="light" backgroundColor={COLORS.bg} />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="explanations"
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+          }}
+        />
       </Stack>
     </View>
   );
