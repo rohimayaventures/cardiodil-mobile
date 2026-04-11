@@ -1,14 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-  RefreshControl,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert, RefreshControl } from 'react-native';
+import { router } from 'expo-router';
 import { COLORS, RADIUS } from '../../src/constants/theme';
 import { getTodayHealthData } from '../../src/lib/healthkit';
 import { ExerciseType, StressLevel, SleepQuality, HealthKitReading } from '../../src/types';
@@ -143,8 +135,16 @@ export default function DashboardScreen() {
     >
       {/* Header */}
       <View style={s.header}>
-        <Text style={s.headerTitle}>Dashboard</Text>
-        <Text style={s.headerDate}>{today}</Text>
+        <View>
+          <Text style={s.headerTitle}>Dashboard</Text>
+          <Text style={s.headerDate}>{today}</Text>
+        </View>
+        <TouchableOpacity
+          style={s.infoBtn}
+          onPress={() => router.push('/explanations')}
+        >
+          <Text style={s.infoBtnText}>?</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Heart Score Hero */}
@@ -469,4 +469,19 @@ const s = StyleSheet.create({
 
   logBtn: { backgroundColor: COLORS.emeraldDeep, borderWidth: 1, borderColor: COLORS.emerald, borderRadius: RADIUS.md, padding: 14, alignItems: 'center', marginTop: 4, marginBottom: 8 },
   logBtnText: { color: COLORS.emeraldText, fontSize: 10, letterSpacing: 1.5 },
+  infoBtn: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: COLORS.elevated,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  infoBtnText: {
+    color: COLORS.silver,
+    fontSize: 13,
+    lineHeight: 16,
+  },
 });
