@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert, RefreshControl } from 'react-native';
 import { router } from 'expo-router';
+import { useAuth } from '../../src/hooks/useAuth';
 import { COLORS, RADIUS } from '../../src/constants/theme';
 import { getTodayHealthData } from '../../src/lib/healthkit';
+import { saveBiometricLog, addDilXP } from '../../src/lib/supabase';
 import { ExerciseType, StressLevel, SleepQuality, HealthKitReading } from '../../src/types';
 
 // Dashboard + Quick Log — CardioDil AI
@@ -49,6 +51,7 @@ function SourceBadge({ source }: { source: string }) {
 }
 
 export default function DashboardScreen() {
+  const { userId, signedIn } = useAuth();
   const [refreshing, setRefreshing] = useState(false);
 
   const [bpm, setBpm] = useState<HealthKitReading>({ value: 0, source: 'manual' });
@@ -112,13 +115,56 @@ export default function DashboardScreen() {
     loadHealthData();
   }, [loadHealthData]);
 
-  function handleLogAll() {
-    // Supabase save wired in auth prompt
-    Alert.alert(
-      'Logged',
-      '+120 Dil XP earned. Phoenix Cycle Day ' + (phoenixDay + 1) + '.',
-      [{ text: 'OK' }]
-    );
+  async function handleLogAll() {
+    if (!signedIn || !userId) {
+      Alert.alert(
+        'Not signed in',
+        'Sign in to save your log.',
+        [{ text: 'OK' }]
+      );
+      return;
+    }
+
+    try {
+      await saveBiometricLog(userId, {
+        user_id: userId,
+        recorded_at: new Date().toISOString(),
+        // Auto-read values from HealthKit
+        resting_hr: bpm.value > 0 ? bpm.value : undefined,
+        spo2_avg: spo2.value > 0 ? spo2.value : undefined,
+        hrv_sdnn: hrv.value > 0 ? hrv.value : undefined,
+        sleep_hours: sleepHours.value > 0 ? sleepHours.value : undefined,
+        steps: steps.value > 0 ? steps.value : undefined,
+        // Manual override values from Quick Log
+        systolic: quickLog.systolic ? parseInt(quickLog.systolic, 10) : undefined,
+        diastolic: quickLog.diastolic ? parseInt(quickLog.diastolic, 10) : undefined,
+        exercise_type: quickLog.exerciseType,
+        exercise_minutes: quickLog.exerciseMinutes
+          ? parseInt(quickLog.exerciseMinutes, 10)
+          : undefined,
+        exercise_intensity: quickLog.exerciseIntensity as 1 | 2 | 3 | 4 | 5,
+        stress_level: quickLog.stressLevel,
+        sleep_quality_override: quickLog.sleepQuality,
+        // Source tracking
+        input_method: 'mixed',
+        data_source: 'cardiodil-mobile',
+      });
+
+      await addDilXP(userId, 120);
+
+      Alert.alert(
+        'Logged',
+        '+120 Dil XP earned. Phoenix Cycle Day ' + (phoenixDay + 1) + '.',
+        [{ text: 'OK' }]
+      );
+    } catch (error) {
+      console.error('[Dashboard] Log All failed:', error);
+      Alert.alert(
+        'Save failed',
+        'Could not save your log. Check your connection and try again.',
+        [{ text: 'OK' }]
+      );
+    }
   }
 
   const today = new Date().toLocaleDateString('en-US', {
