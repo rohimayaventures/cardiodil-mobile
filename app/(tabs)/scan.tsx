@@ -37,7 +37,7 @@ type ScanStep = 'capture' | 'preview' | 'analyzing' | 'result';
 interface MealResult {
   description: string;
   components: string[];
-  heartScore: number;
+  mealScore: number;
   tier: string;
   dilFeedback: string;
   nutrition: {
@@ -234,16 +234,16 @@ CRITICAL RULES:
 
       const mealNutrition = visionNutritionToMealNutrition(nutritionRaw, cookingMethod);
 
-      // Calculate heart score using Prasad V1 algorithm
-      const heartScore = hasBrandedProduct
+      // Calculate meal score using Prasad V1 algorithm
+      const mealScore = hasBrandedProduct
         ? 50 // Neutral score when we cannot confirm branded nutrition
         : calculateMealScore(mealNutrition).score;
 
-      const tierInfo = getMealScoreTier(heartScore);
+      const tierInfo = getMealScoreTier(mealScore);
       const tier = tierInfo.label;
 
       // Get Dil's personality response for this score
-      const personalityLine = getMealResponse(heartScore);
+      const personalityLine = getMealResponse(mealScore);
 
       // Build Dil's full feedback combining vision observation and personality
       const dilObservation = typeof parsed.dil_observation === 'string' ? parsed.dil_observation : '';
@@ -259,7 +259,7 @@ CRITICAL RULES:
         components: Array.isArray(parsed.components)
           ? parsed.components.filter((c): c is string => typeof c === 'string')
           : [],
-        heartScore,
+        mealScore,
         tier,
         dilFeedback,
         nutrition: mealNutritionToDisplay(mealNutrition),
@@ -303,9 +303,9 @@ CRITICAL RULES:
         user_id:             userId,
         description:       result.description,
         detected_components: { components: result.components },
-        heart_score:       result.heartScore,
+        heart_score:       result.mealScore,
         heart_score_tier:  result.tier,
-        ldl_impact:        result.heartScore >= 70 ? 'Favorable' : result.heartScore >= 50 ? 'Neutral' : 'Unfavorable',
+        ldl_impact:        result.mealScore >= 70 ? 'Favorable' : result.mealScore >= 50 ? 'Neutral' : 'Unfavorable',
         sat_fat_flag:      (result.nutrition.sat_fat_g ?? 0) > 10,
         sodium_flag:       (result.nutrition.sodium_mg ?? 0) > 400,
         nutrition:         mealNutrition,
@@ -327,7 +327,7 @@ CRITICAL RULES:
     setSaved(false);
   }
 
-  const scoreColor = result ? getMealScoreColor(result.heartScore) : COLORS.silver;
+  const scoreColor = result ? getMealScoreColor(result.mealScore) : COLORS.silver;
 
   // Camera not yet granted
   if (!permission) {
@@ -446,18 +446,21 @@ CRITICAL RULES:
         <ScrollView contentContainerStyle={s.resultContent}>
           {/* Score hero */}
           <View style={s.scoreCard}>
-            <Text style={s.scoreLabel}>HEART SCORE</Text>
+            <Text style={s.scoreLabel}>MEAL SCORE</Text>
             <Text style={[s.scoreNumber, { color: scoreColor }]}>
-              {result.heartScore}
+              {result.mealScore}
             </Text>
             <Text style={[s.scoreTier, { color: scoreColor }]}>
               {result.tier}
+            </Text>
+            <Text style={s.scoreImpactNote}>
+              This meal counts 30% toward your daily Heart Score on the Dashboard.
             </Text>
             <View style={s.barTrack}>
               <View style={[
                 s.barFill,
                 {
-                  width: `${result.heartScore}%` as `${number}%`,
+                  width: `${result.mealScore}%` as `${number}%`,
                   backgroundColor: scoreColor,
                 },
               ]} />
@@ -645,6 +648,14 @@ const s = StyleSheet.create({
   scoreLabel:  { color: COLORS.silver, fontSize: 8, letterSpacing: 2, marginBottom: 6 },
   scoreNumber: { fontSize: 62, fontWeight: '500', lineHeight: 66 },
   scoreTier:   { fontSize: 12, fontStyle: 'italic', marginBottom: 12 },
+  scoreImpactNote: {
+    color: 'rgba(148,163,184,0.5)',
+    fontSize: 10,
+    fontStyle: 'italic',
+    textAlign: 'center',
+    marginTop: 6,
+    paddingHorizontal: 12,
+  },
   barTrack: {
     width: '100%', height: 4, backgroundColor: COLORS.elevated,
     borderRadius: 100, overflow: 'hidden',
