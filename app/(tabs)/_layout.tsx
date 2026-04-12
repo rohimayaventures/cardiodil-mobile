@@ -13,7 +13,7 @@ function TabIcon({ icon, color }: { icon: string; color: string }) {
 }
 
 export default function TabLayout() {
-  const { userId, signedIn } = useAuth();
+  const { userId, signedIn, loading } = useAuth();
 
   useEffect(() => {
     if (!signedIn || !userId) return;
@@ -34,10 +34,10 @@ export default function TabLayout() {
   }, [signedIn, userId]);
 
   useEffect(() => {
-    if (!signedIn) {
+    if (!loading && !signedIn) {
       router.replace('/sign-in');
     }
-  }, [signedIn]);
+  }, [signedIn, loading]);
 
   return (
     <Tabs
