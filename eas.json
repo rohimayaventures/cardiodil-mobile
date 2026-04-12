@@ -14,14 +14,6 @@
       "distribution": "internal",
       "ios": {
         "simulator": false
-      },
-      "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "",
-        "EXPO_PUBLIC_SUPABASE_ANON_KEY": "",
-        "EXPO_PUBLIC_ANTHROPIC_API_KEY": "",
-        "EXPO_PUBLIC_ELEVENLABS_API_KEY": "",
-        "EXPO_PUBLIC_ELEVENLABS_VOICE_ID": "",
-        "EXPO_PUBLIC_USDA_API_KEY": ""
       }
     },
     "production": {
@@ -32,12 +24,6 @@
     }
   },
   "submit": {
-    "production": {
-      "ios": {
-        "appleId": "",
-        "ascAppId": "",
-        "appleTeamId": ""
-      }
-    }
+    "production": {}
   }
 }
