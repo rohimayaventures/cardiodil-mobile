@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CardioDil AI — Privacy Policy</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      background: #07090A;
+      color: #94A3B8;
+      line-height: 1.7;
+    }
+    h1 { color: #C9A84C; font-size: 22px; letter-spacing: 1px; }
+    h2 { color: #86EFAC; font-size: 14px; letter-spacing: 1.5px;
+         text-transform: uppercase; margin-top: 36px; }
+    p, li { font-size: 14px; }
+    a { color: #22C55E; }
+    .effective { color: rgba(148,163,184,0.5); font-size: 12px;
+                 font-style: italic; margin-bottom: 32px; }
+    .disclaimer {
+      border: 1px solid rgba(220,38,38,0.3);
+      background: rgba(220,38,38,0.05);
+      border-radius: 8px;
+      padding: 16px;
+      margin: 24px 0;
+    }
+    .disclaimer p { color: #DC2626; font-size: 13px; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <h1>CardioDil AI Privacy Policy</h1>
+  <p class="effective">Effective date: April 2026 — Version 1.0</p>
+  <p>
+    CardioDil AI is a product of Rohimaya Health AI, operated under Pagade Ventures.
+    This policy explains what data we collect, how we use it, and your rights.
+  </p>
+
+  <div class="disclaimer">
+    <p>
+      CardioDil AI is a personal health tracking tool and is NOT a medical device.
+      It is NOT a substitute for professional medical advice, diagnosis, or treatment.
+      Always consult a qualified healthcare provider for medical decisions.
+      In an emergency, call 911 immediately.
+    </p>
+  </div>
+
+  <h2>What We Collect</h2>
+  <p>CardioDil AI collects the following data when you use the app:</p>
+  <ul>
+    <li>Email address for account creation and authentication</li>
+    <li>Health data you voluntarily enter: lab results, biometric readings,
+        meal descriptions, exercise logs, stress levels, and sleep quality</li>
+    <li>Health data read from Apple HealthKit with your explicit permission:
+        resting heart rate, heart rate variability, blood oxygen, steps,
+        sleep duration, and blood pressure</li>
+    <li>Meal images you capture or upload for nutritional analysis</li>
+    <li>App usage data for improving the product</li>
+  </ul>
+
+  <h2>How We Use Your Data</h2>
+  <ul>
+    <li>To calculate your Meal Score and daily Heart Score</li>
+    <li>To generate personalized insights and responses from Dil,
+        our AI cardiac health agent</li>
+    <li>To store your health history so Dil can identify trends over time</li>
+    <li>To send your meal images to Anthropic's Claude API for nutritional analysis.
+        Images are processed and not stored by Anthropic beyond the API call.</li>
+    <li>To convert Dil's text responses to voice via ElevenLabs Text to Speech API.
+        Text is processed and not stored by ElevenLabs beyond the API call.</li>
+  </ul>
+
+  <h2>What We Do Not Do</h2>
+  <ul>
+    <li>We do not sell your health data to any third party. Ever.</li>
+    <li>We do not share your health data with advertisers.</li>
+    <li>We do not use your health data to train AI models.</li>
+    <li>We do not write data back to Apple HealthKit.</li>
+    <li>We do not provide medical diagnoses or treatment recommendations.</li>
+  </ul>
+
+  <h2>HealthKit Data</h2>
+  <p>
+    CardioDil AI requests read-only access to Apple HealthKit for the following
+    data types: resting heart rate, heart rate variability (SDNN), blood oxygen
+    saturation (SpO2), step count, sleep analysis, and blood pressure.
+    This data is used only within the app to calculate your Heart Score and
+    provide context to Dil. It is stored in your private Supabase account
+    and is never shared or sold.
+  </p>
+  <p>
+    You can revoke HealthKit access at any time in your iPhone Settings
+    under Health > Apps > CardioDil AI.
+  </p>
+
+  <h2>Data Storage and Security</h2>
+  <p>
+    Your health data is stored in a private Supabase database protected by
+    Row Level Security. Only your authenticated account can read or write
+    your data. We use industry-standard encryption in transit and at rest.
+  </p>
+
+  <h2>Third Party Services</h2>
+  <ul>
+    <li><strong>Supabase</strong> — database and authentication.
+        <a href="https://supabase.com/privacy">Privacy policy</a></li>
+    <li><strong>Anthropic Claude API</strong> — meal image analysis and
+        Dil conversation.
+        <a href="https://www.anthropic.com/privacy">Privacy policy</a></li>
+    <li><strong>ElevenLabs</strong> — text to speech for Dil's voice.
+        <a href="https://elevenlabs.io/privacy">Privacy policy</a></li>
+    <li><strong>USDA FoodData Central</strong> — nutritional data for
+        whole food ingredients. No personal data is shared.</li>
+    <li><strong>Open Food Facts</strong> — nutritional data for packaged foods.
+        No personal data is shared.</li>
+  </ul>
+
+  <h2>Your Rights</h2>
+  <p>
+    You may request deletion of your account and all associated health data
+    at any time by contacting us at
+    <a href="mailto:privacy@rohimaya.ai">privacy@rohimaya.ai</a>.
+    Data deletion is completed within 30 days.
+  </p>
+
+  <h2>Children</h2>
+  <p>
+    CardioDil AI is not intended for users under 13 years of age.
+    We do not knowingly collect data from children.
+  </p>
+
+  <h2>Changes to This Policy</h2>
+  <p>
+    If we make material changes to this policy, we will notify you
+    in the app and update the effective date above.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Rohimaya Health AI / Pagade Ventures<br />
+    Westminster, Colorado<br />
+    <a href="mailto:privacy@rohimaya.ai">privacy@rohimaya.ai</a>
+  </p>
+
+</body>
+</html>

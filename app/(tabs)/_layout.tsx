@@ -1,5 +1,9 @@
+import { useEffect } from 'react';
 import { Tabs } from 'expo-router';
+import { router } from 'expo-router';
 import { Text } from 'react-native';
+import { useAuth } from '../../src/hooks/useAuth';
+import { supabase } from '../../src/lib/supabase';
 import { COLORS } from '../../src/constants/theme';
 
 function TabIcon({ icon, color }: { icon: string; color: string }) {
@@ -9,6 +13,26 @@ function TabIcon({ icon, color }: { icon: string; color: string }) {
 }
 
 export default function TabLayout() {
+  const { userId, signedIn } = useAuth();
+
+  useEffect(() => {
+    if (!signedIn || !userId) return;
+
+    async function checkDisclaimer() {
+      const { data } = await supabase
+        .from('user_profiles')
+        .select('disclaimer_accepted_at, onboarding_complete')
+        .eq('id', userId)
+        .single();
+
+      if (!data?.disclaimer_accepted_at) {
+        router.replace('/disclaimer');
+      }
+    }
+
+    checkDisclaimer();
+  }, [signedIn, userId]);
+
   return (
     <Tabs
       screenOptions={{
