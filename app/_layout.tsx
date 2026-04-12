@@ -31,6 +31,20 @@ export default function RootLayout() {
             gestureEnabled: false,
           }}
         />
+        <Stack.Screen
+          name="privacy-policy"
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+          }}
+        />
+        <Stack.Screen
+          name="settings"
+          options={{
+            headerShown: false,
+            presentation: 'modal',
+          }}
+        />
       </Stack>
     </View>
   );

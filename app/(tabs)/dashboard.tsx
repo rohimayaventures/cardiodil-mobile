@@ -185,12 +185,20 @@ export default function DashboardScreen() {
           <Text style={s.headerTitle}>Dashboard</Text>
           <Text style={s.headerDate}>{today}</Text>
         </View>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
+        <TouchableOpacity
+          style={s.infoBtn}
+          onPress={() => router.push('/settings')}
+        >
+          <Text style={s.infoBtnText}>☰</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={s.infoBtn}
           onPress={() => router.push('/explanations')}
         >
           <Text style={s.infoBtnText}>?</Text>
         </TouchableOpacity>
+        </View>
       </View>
 
       {/* Heart Score Hero */}
