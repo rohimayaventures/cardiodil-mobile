@@ -6,7 +6,6 @@ import {
   ScrollView,
   TouchableOpacity,
   SafeAreaView,
-  Linking,
 } from 'react-native';
 import { router } from 'expo-router';
 import { useAuth } from '../src/hooks/useAuth';
@@ -18,8 +17,6 @@ import { COLORS, RADIUS } from '../src/constants/theme';
 // Also accessible from Settings at any time
 // Apple App Store Review Guidelines 5.1.3 compliance
 // gestureEnabled false prevents swipe-to-dismiss
-
-const PRIVACY_POLICY_URL = 'https://your-privacy-policy-url.com';
 
 export default function DisclaimerScreen() {
   const { userId } = useAuth();
@@ -146,7 +143,7 @@ export default function DisclaimerScreen() {
             describes how we collect, use, and protect your health data.
           </Text>
           <TouchableOpacity
-            onPress={() => Linking.openURL(PRIVACY_POLICY_URL)}
+            onPress={() => router.push('/privacy-policy')}
             style={s.linkBtn}
           >
             <Text style={s.linkText}>Read Privacy Policy</Text>
