@@ -137,12 +137,12 @@ export async function getWeeklyMealAverage(userId: string): Promise<number> {
   since.setDate(since.getDate() - 7);
   const { data, error } = await supabase
     .from('meals')
-    .select('heart_score')
+    .select('meal_score')
     .eq('user_id', userId)
     .gte('created_at', since.toISOString());
   if (error) throw error;
   if (!data || data.length === 0) return 0;
-  const avg = data.reduce((sum, m) => sum + (m.heart_score ?? 0), 0) / data.length;
+  const avg = data.reduce((sum, m) => sum + (m.meal_score ?? 0), 0) / data.length;
   return Math.round(avg);
 }
 

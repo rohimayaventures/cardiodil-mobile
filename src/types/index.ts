@@ -84,8 +84,8 @@ export interface MealLog {
   image_url?: string;
   description: string;
   detected_components?: Record<string, unknown>;
-  heart_score: number;
-  heart_score_tier: string;
+  meal_score: number;
+  meal_score_tier: string;
   ldl_impact: string;
   fiber_score?: number;
   sat_fat_flag?: boolean;

@@ -43,8 +43,8 @@ export interface DilContext {
   // Today's meals
   todayMeals?: Array<{
     description: string;
-    heart_score: number;
-    heart_score_tier: string;
+    meal_score: number;
+    meal_score_tier: string;
     ldl_impact: string;
   }>;
   weeklyMealAvg?: number;
@@ -185,7 +185,7 @@ MEALS TODAY
 
 ${hasMeals ? `
 ${context.todayMeals!.map((m, i) =>
-  `${i + 1}. ${m.description} — Score: ${m.heart_score}/100 (${m.heart_score_tier}), LDL impact: ${m.ldl_impact}`
+  `${i + 1}. ${m.description} — Score: ${m.meal_score}/100 (${m.meal_score_tier}), LDL impact: ${m.ldl_impact}`
 ).join('\n')}
 7-day meal average: ${context.weeklyMealAvg ?? 'calculating'}/100
 ` : 'No meals logged today yet.'}

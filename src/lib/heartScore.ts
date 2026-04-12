@@ -28,7 +28,7 @@ const WEIGHTS = {
 
 export function scoreMealComponent(meals: MealLog[]): number {
   if (!meals || meals.length === 0) return 50;
-  const avg = meals.reduce((sum, m) => sum + (m.heart_score ?? 50), 0) / meals.length;
+  const avg = meals.reduce((sum, m) => sum + (m.meal_score ?? 50), 0) / meals.length;
   return Math.round(Math.min(100, Math.max(0, avg)));
 }
 

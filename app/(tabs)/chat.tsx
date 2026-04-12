@@ -111,8 +111,8 @@ export default function ChatScreen() {
         ldlTrend,
         todayMeals: meals.map((m: any) => ({
           description:      m.description,
-          heart_score:      m.heart_score,
-          heart_score_tier: m.heart_score_tier ?? '',
+          meal_score:      m.meal_score,
+          meal_score_tier: m.meal_score_tier ?? '',
           ldl_impact:       m.ldl_impact ?? '',
         })),
         weeklyMealAvg: weeklyAvg,
