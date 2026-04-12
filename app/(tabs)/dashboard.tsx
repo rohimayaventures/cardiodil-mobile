@@ -236,10 +236,17 @@ export default function DashboardScreen() {
           <SourceBadge source={hrv.source} />
         </View>
         <View style={s.metricCard}>
-          <Text style={s.cardLabel}>7-DAY MEAL AVG</Text>
-          <Text style={[s.metricVal, { color: COLORS.gold }]}>{weeklyMealAvg}</Text>
-          <Text style={s.metricUnit}>/100</Text>
-          <Text style={[s.metricNote, { color: COLORS.silver }]}>4 meals logged</Text>
+          <Text style={s.cardLabel}>MEAL SCORE</Text>
+          <Text style={[s.metricVal, { color: COLORS.emeraldText }]}>
+            {weeklyMealAvg ?? '--'}
+          </Text>
+          <Text style={s.metricUnit}>/100 last meal</Text>
+          <Text style={[s.metricNote, { color: COLORS.silver }]}>
+            7-day avg: {weeklyMealAvg ?? '--'}
+          </Text>
+          <Text style={[s.metricNote, { color: 'rgba(148,163,184,0.45)' }]}>
+            30% of Heart Score
+          </Text>
         </View>
       </View>
 
