@@ -33,6 +33,12 @@ export default function TabLayout() {
     checkDisclaimer();
   }, [signedIn, userId]);
 
+  useEffect(() => {
+    if (!signedIn) {
+      router.replace('/sign-in');
+    }
+  }, [signedIn]);
+
   return (
     <Tabs
       screenOptions={{
