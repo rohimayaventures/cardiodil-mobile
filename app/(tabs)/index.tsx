@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import {
-  View,
   Text,
   StyleSheet,
   TouchableOpacity,
@@ -117,15 +116,27 @@ export default function DilScreen() {
   }
 
   useEffect(() => {
-    // Stagger start so ripples fire on the first beat
+    let cancelled = false;
+
     const beatTimer = setTimeout(() => {
-      fireRipple();
-      beatCycle();
+      if (!cancelled) {
+        fireRipple();
+        beatCycle();
+      }
     }, 600);
 
-    glowCycle();
+    if (!cancelled) glowCycle();
 
-    return () => clearTimeout(beatTimer);
+    return () => {
+      cancelled = true;
+      clearTimeout(beatTimer);
+      heartScale.stopAnimation();
+      glowOpacity.stopAnimation();
+      rings.forEach((ring) => {
+        ring.opacity.stopAnimation();
+        ring.scale.stopAnimation();
+      });
+    };
   }, []);
 
   return (

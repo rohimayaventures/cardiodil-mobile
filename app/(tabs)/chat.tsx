@@ -22,7 +22,7 @@ import {
   getRecentLabs,
   getUserProfile,
 } from '../../src/lib/supabase';
-import { MORNING_GREETINGS, getDilResponse } from '../../src/lib/dilPersonality';
+import { MORNING_GREETINGS } from '../../src/lib/dilPersonality';
 
 // Dil Chat Screen — CardioDil AI
 // Conversational interface with Dil powered by Claude Sonnet
