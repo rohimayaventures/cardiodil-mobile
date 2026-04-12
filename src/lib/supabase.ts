@@ -150,12 +150,11 @@ export async function getWeeklyMealAverage(userId: string): Promise<number> {
 
 export async function saveLabResult(
   userId: string,
-  data: Omit<import('../types').LabResult, 'id' | 'created_at'>
+  data: Record<string, unknown>
 ): Promise<void> {
-  const { error } = await supabase.from('lab_results').insert({
-    ...data,
-    user_id: userId,
-  });
+  const { error } = await supabase
+    .from('lab_results')
+    .insert({ user_id: userId, ...data });
   if (error) throw error;
 }
 
