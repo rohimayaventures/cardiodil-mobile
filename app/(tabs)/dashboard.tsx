@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert, RefreshControl, Dimensions } from 'react-native';
 import { router } from 'expo-router';
 import { useAuth } from '../../src/hooks/useAuth';
+import DilHeart3D from '../../src/components/DilHeart3D';
 import { COLORS, RADIUS } from '../../src/constants/theme';
 import { getTodayHealthData } from '../../src/lib/healthkit';
 import { saveBiometricLog, addDilXP } from '../../src/lib/supabase';
@@ -12,6 +13,9 @@ import { ExerciseType, StressLevel, SleepQuality, HealthKitReading } from '../..
 // Every field has manual override
 // Supabase save and real auth wired in a later prompt
 // Log All awards 120 Dil XP (persisted in later prompt)
+
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
+const HEART_SIZE_DASH = Math.min(SCREEN_WIDTH * 0.28, 110);
 
 const EXERCISE_TYPES: { key: ExerciseType; label: string }[] = [
   { key: 'walk',  label: 'Walk'  },
@@ -205,7 +209,10 @@ export default function DashboardScreen() {
       <View style={s.card}>
         <Text style={s.cardLabel}>HEART SCORE TODAY</Text>
         <View style={s.scoreRow}>
-          <Text style={s.scoreNumber}>{heartScore}</Text>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <DilHeart3D bpm={bpm.value > 0 ? bpm.value : 68} size={HEART_SIZE_DASH} />
+            <Text style={[s.scoreNumber, { position: 'absolute' }]}>{heartScore}</Text>
+          </View>
           <View style={{ flex: 1 }}>
             <Text style={s.scoreTrend}>Good, trending up ↑</Text>
             <Text style={s.scoreStreak}>

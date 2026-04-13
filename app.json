@@ -45,7 +45,8 @@
         {
           "photosPermission": "CardioDil AI accesses your photos to analyze meal images."
         }
-      ]
+      ],
+      "expo-asset"
     ]
   }
 }
